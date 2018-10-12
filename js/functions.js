@@ -19,7 +19,6 @@ function randomBall(maxNum){
 	return Math.floor(Math.random() * maxNum + 1);
 }
 
-
 // let machine choose!
 function pickAutomatic(){
 	winningNumbers = []; // lets clear the array for repeated clicks
