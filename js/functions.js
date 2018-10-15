@@ -7,7 +7,10 @@ Lottery numbers
 - then once happy the user shoud select who is buying that day and then send the numbers
 - the script will via ajax and php send an email including the person's name, selected lotto and numbers.
 
-
+Lotto Rules:
+Mega Millions: 5 Numbers from 1 - 70 and the mega ball from 1 - 25.
+Powerball: 5 numbers 1 - 69 and power ball 1 - 26
+Texass Lotto: 
 */
 
 let winningNumbers = [];
@@ -26,6 +29,10 @@ function pickAutomatic(){
 	do {
 		winningNumbers.push(randomBall(70));
 	} while (winningNumbers.length < 5);
+	winningNumbers.sort(
+		function(a,b){
+			return a - b;
+		})
 	console.log(megaPowerBall, winningNumbers);
 }
 
