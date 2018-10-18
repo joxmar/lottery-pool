@@ -10,12 +10,14 @@ Lottery numbers
 Lotto Rules:
 Mega Millions: 5 Numbers from 1 - 70 and the mega ball from 1 - 25.
 Powerball: 5 numbers 1 - 69 and power ball 1 - 26
-Texass Lotto: 
+Lotto Texas: 6 numbers 1 - 54
 */
 
-let winningNumbers = [];
-let ball = 0;
-let megaPowerBall;
+let winningNumbers, megaPowerBall, gameMaxNums;
+let ballsToPick = 0;
+let chooseGame = document.getElementById('choose-game');
+let winningNumbersContainer = document.getElementById('winning-numbers');
+let megaPowerBallContainer = document.getElementById('mega-power-ball');
 
 function randomBall(maxNum){	
 	// maxNum being the max number of the range the user can pick from the 5 numbers (i.e. 1-70 megaballs) or 25 megaball
@@ -23,18 +25,56 @@ function randomBall(maxNum){
 }
 
 // let machine choose!
-function pickAutomatic(){
-	winningNumbers = []; // lets clear the array for repeated clicks
-	megaPowerBall = randomBall(25);
+function pickAutomatic(game){
+	winningNumbers = []; // lets clear the array for repeated tries
+
+	/* check what game was chosen and set rules
+		Lotto Rules:
+		Powerball: 5 numbers 1 - 69 and power ball 1 - 26
+		Mega Millions: 5 Numbers from 1 - 70 and the mega ball from 1 - 25.
+		Lotto Texas: 6 numbers 1 - 54
+	*/
+	if (game === 'PB') {
+		megaPowerBall = randomBall(26);
+		ballsToPick = 5;
+		gameMaxNums = 69;
+	}else if(game === 'MB'){
+		megaPowerBall = randomBall(25);	
+		ballsToPick = 5;
+		gameMaxNums = 70;		
+	}else {
+		megaPowerBall = 'no mega or powerball';	
+		ballsToPick = 6;
+		gameMaxNums = 54;
+	}
+
+	// pick numbers!!
 	do {
-		winningNumbers.push(randomBall(70));
-	} while (winningNumbers.length < 5);
+		winningNumbers.push(randomBall(gameMaxNums));
+	} while (winningNumbers.length < ballsToPick);
+
+	// sort numbers in ascending number
 	winningNumbers.sort(
 		function(a,b){
 			return a - b;
 		})
+
+	winningNumbersContainer.textContent = winningNumbers;
+	megaPowerBallContainer.textContent = megaPowerBall;
+
 	console.log(megaPowerBall, winningNumbers);
 }
 
-var rollNumbers = document.getElementById('pick-automatic');
-rollNumbers.addEventListener('click', pickAutomatic);
+// get elements and run functions
+let rollNumbers = document.getElementById('pick-automatic');
+rollNumbers.addEventListener('click', function (e){	
+	e.preventDefault();
+	pickAutomatic(chooseGame.value);
+});
+
+chooseGame.addEventListener('change', function(event){
+	var chooseGameVal = event.target.value;
+	if (chooseGameVal !== '') {
+		rollNumbers.removeAttribute('disabled');
+	}
+})

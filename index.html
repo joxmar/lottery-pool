@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>untitled</title>
+<title>Lottery Poll</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -11,7 +11,18 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
-	<button id="pick-automatic">Roll Numbers</button>	
+	<form action="">
+		<label for="choose-game">Select Game</label>
+		<select id="choose-game">
+			<option value="" selected disabled="">Select Game</option>
+			<option value="PB">Power Ball</option>
+			<option value="MB">Mega Ball</option>
+			<option value="LT">Lotto Texas</option>
+		</select>
+		<button id="pick-automatic" disabled>Roll Numbers</button>	
+	</form>
+	<p>Winning Numbers: <span id="winning-numbers"></span></p>
+	<p>Mega/Power Ball: <span id="mega-power-ball"></span></p>
 	<script src="js/functions.js"></script>
 </body>
 </html> 
