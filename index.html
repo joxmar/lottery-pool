@@ -11,18 +11,61 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
-	<form action="">
-		<label for="choose-game">Select Game</label>
-		<select id="choose-game">
-			<option value="" selected disabled="">Select Game</option>
-			<option value="PB">Power Ball</option>
-			<option value="MB">Mega Ball</option>
-			<option value="LT">Lotto Texas</option>
-		</select>
-		<button id="pick-automatic" disabled>Roll Numbers</button>	
-	</form>
-	<p>Winning Numbers: <span id="winning-numbers"></span></p>
-	<p>Mega/Power Ball: <span id="mega-power-ball"></span></p>
+	<header class="header">
+		<button></button>
+		<h1>Lotto Pool / user name</h1>
+		<button></button>
+	</header>
+	<section>
+		<form action="">
+			<fieldset id="select-name">
+				<h2>Choose Name</h2>
+				<button>Michael</button>
+				<button>James</button>
+				<button>Jorge</button>
+				<button>New Player</button>
+				<input id="new-player" type="text">
+			</fieldset>
+			<fieldset id="choose-game">
+				<h2>Choose Game</h2>
+				<button>Lotto Texas</button>
+				<button>Mega Millions</button>
+				<button>Power Ball</button>
+			</fieldset>
+			<fieldset id="choose-numbers">
+				<h2>Choose Numbers</h2>
+				<button id="pick-automatic">Pick Randomlly</button>
+				<button>Pick Manually</button>
+				<p>Picked Numbers: <span id="winning-numbers"></span></p>
+				<p>Mega/Power Ball: <span id="mega-power-ball"></span></p>
+				<input type="number">
+				<input type="number">
+				<input type="number">
+				<input type="number">
+				<input type="number">
+				<input type="number">
+				<button>Submit Numbers</button>
+			</fieldset>
+			<fieldset id="whos-turn">
+				<h2>Who's turn</h2>
+				<button>Show History</button>
+				<table>
+					<tr>
+						<th>Buyer/date</th>
+						<th>James' #</th>
+						<th>Michael's #</th>
+						<th>Jorge's #</th>
+					</tr>
+					<tr>
+						<td>Jorge <br>12/12/2018 </td>
+						<td>5-5-5-5-5-5</td>
+						<td>5-5-5-5-5-5</td>
+						<td>5-5-5-5-5-5</td>					
+					</tr>
+				</table>
+			</fieldset>
+		</form>
+	</section>
 	<script src="js/functions.js"></script>
 </body>
 </html> 
