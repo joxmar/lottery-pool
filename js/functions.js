@@ -13,12 +13,20 @@ Powerball: 5 numbers 1 - 69 and power ball 1 - 26
 Lotto Texas: 6 numbers 1 - 54
 */
 
-let winningNumbers, megaPowerBall, gameMaxNums;
-let ballsToPick = 0;
-let chooseGame = document.getElementById('choose-game');
+let winningNumbers, megaPowerBall, gameMaxNums, playerName; // global variables
+
+let ballsToPick = 0; // the required # of balls prt game
+
+// lets grab all elements needed from the DOM
 let winningNumbersContainer = document.getElementById('winning-numbers');
 let megaPowerBallContainer = document.getElementById('mega-power-ball');
+let selectPlayer = document.querySelectorAll('.select-player');
+let rollNumbers = document.getElementById('pick-automatic');
+let pageTitle = document.getElementById('game-title');
 
+const startOver = document.getElementById('refresh-page');
+
+// functions 
 function randomBall(maxNum){	
 	// maxNum being the max number of the range the user can pick from the 5 numbers (i.e. 1-70 megaballs) or 25 megaball
 	return Math.floor(Math.random() * maxNum + 1);
@@ -57,7 +65,8 @@ function pickAutomatic(game){
 	winningNumbers.sort(
 		function(a,b){
 			return a - b;
-		})
+		}
+	);
 
 	winningNumbersContainer.textContent = winningNumbers;
 	megaPowerBallContainer.textContent = megaPowerBall;
@@ -65,16 +74,25 @@ function pickAutomatic(game){
 	console.log(megaPowerBall, winningNumbers);
 }
 
-// get elements and run functions
-let rollNumbers = document.getElementById('pick-automatic');
-rollNumbers.addEventListener('click', function (e){	
-	e.preventDefault();
-	pickAutomatic(chooseGame.value);
+// run functions by interacting with the DOM
+// select user
+selectPlayer.forEach(function(element){	
+	element.addEventListener('click', function(e){
+		e.preventDefault();		
+		playerName = this.textContent;
+		pageTitle.textContent = playerName;
+	});
 });
 
-chooseGame.addEventListener('change', function(event){
-	var chooseGameVal = event.target.value;
-	if (chooseGameVal !== '') {
-		rollNumbers.removeAttribute('disabled');
-	}
+// select game and roll numbers
+rollNumbers.addEventListener('click', function (e){	
+	e.preventDefault();
+	var whatGame = document.querySelector('input[name="game"]:checked').id;
+	console.log(whatGame);
+	pickAutomatic(whatGame);
+});
+
+//  start over (refresh)
+startOver.addEventListener('click', function(){
+	location.reload();
 })

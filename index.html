@@ -12,25 +12,26 @@
 </head>
 <body>
 	<header class="header">
-		<button></button>
-		<h1>Lotto Pool / user name</h1>
-		<button></button>
+		<button>Previous</button>
+		<h1 id="game-title">Lotto Pool</h1>
+		<button id="refresh-page">Start Over</button>
 	</header>
 	<section>
 		<form action="">
 			<fieldset id="select-name">
 				<h2>Choose Name</h2>
-				<button>Michael</button>
-				<button>James</button>
-				<button>Jorge</button>
-				<button>New Player</button>
-				<input id="new-player" type="text">
+				<button class="select-player">Michael</button>
+				<button class="select-player">James</button>
+				<button class="select-player">Jorge</button>
 			</fieldset>
 			<fieldset id="choose-game">
 				<h2>Choose Game</h2>
-				<button>Lotto Texas</button>
-				<button>Mega Millions</button>
-				<button>Power Ball</button>
+				<input id="LT" type="radio" name="game">
+				<label for="LT">Lotto Texas</label>
+				<input id="MB" type="radio" name="game">
+				<label for="MB">Mega Millions</label>
+				<input id="PB" type="radio" name="game">
+				<label for="PB">Power Ball</label>
 			</fieldset>
 			<fieldset id="choose-numbers">
 				<h2>Choose Numbers</h2>
