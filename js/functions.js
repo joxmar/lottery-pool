@@ -95,4 +95,4 @@ rollNumbers.addEventListener('click', function (e){
 //  start over (refresh)
 startOver.addEventListener('click', function(){
 	location.reload();
-})
+});
