@@ -1,98 +1,88 @@
 /*
 Lottery numbers
-- user should select his name.
-- user sould be able to select what are they playing (mega, power, Texas lotto)
-  depending the selection the lotto system shoudl select or let user select the numbers
-- if user selected automatic roll then should first review the numbers and decide wether to proceed or roll again
-- then once happy the user shoud select who is buying that day and then send the numbers
-- the script will via ajax and php send an email including the person's name, selected lotto and numbers.
-
+- get last draw numbers from api: https://data.ny.gov/resource/d6yy-54nr.json
+- if user has previously played, get their numbers from local storage
+- draw numbers from button:
+	- generate 5 random numbers between 1 and 69 and place it in an array
+	- generate 1 random number between 1 and 26
 Lotto Rules:
-Mega Millions: 5 Numbers from 1 - 70 and the mega ball from 1 - 25.
 Powerball: 5 numbers 1 - 69 and power ball 1 - 26
-Lotto Texas: 6 numbers 1 - 54
 */
 
-let winningNumbers, megaPowerBall, gameMaxNums, playerName; // global variables
+// Let's get past draws
+let pastDraws;
+const drawsApiUrl = 'https://data.ny.gov/resource/d6yy-54nr.json';
+const getPastDraws = async function () {
+  const response = await fetch(drawsApiUrl);
+  pastDraws = await response.json();
 
-let ballsToPick = 0; // the required # of balls prt game
+  document.getElementById('last-draw-nums').textContent =
+    pastDraws[0].winning_numbers;
 
-// lets grab all elements needed from the DOM
-let winningNumbersContainer = document.getElementById('winning-numbers');
-let megaPowerBallContainer = document.getElementById('mega-power-ball');
-let selectPlayer = document.querySelectorAll('.select-player');
-let rollNumbers = document.getElementById('pick-automatic');
-let pageTitle = document.getElementById('game-title');
+  //format date from draw_date to mm/dd/yyyy
+  const drawDate = new Date(pastDraws[0].draw_date);
+  const drawDateOptions = { month: 'numeric', day: 'numeric', year: 'numeric' };
+  const drawDateFormatted = drawDate.toLocaleDateString(
+    'en-US',
+    drawDateOptions
+  );
 
-const startOver = document.getElementById('refresh-page');
+  document.querySelector('.date').textContent = drawDateFormatted;
+};
+getPastDraws();
 
-// functions 
-function randomBall(maxNum){	
-	// maxNum being the max number of the range the user can pick from the 5 numbers (i.e. 1-70 megaballs) or 25 megaball
-	return Math.floor(Math.random() * maxNum + 1);
-}
+// now let's draw our numbers
+let numbers = [];
+let powerball;
+let drawNumbers = function () {
+  // clear numbers
+  numbers = [];
+  for (let i = 0; i < 5; i++) {
+    numberDrawn = Math.floor(Math.random() * 69) + 1;
+    // check if number has already been drawn
+    if (numbers.includes(numberDrawn)) {
+      i--; // go back one step and draw again
+    } else {
+      numbers.push(numberDrawn);
+    }
+  }
+  // sort numbers in ascending order
+  numbers.sort((a, b) => a - b);
+  // draw powerball
+  powerball = Math.floor(Math.random() * 26) + 1;
 
-// let machine choose!
-function pickAutomatic(game){
-	winningNumbers = []; // lets clear the array for repeated tries
+  // save numbers to local storage
+  let savedNumbers = numbers.concat(powerball);
+  localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
+  displayNumbers();
+};
 
-	/* check what game was chosen and set rules
-		Lotto Rules:
-		Powerball: 5 numbers 1 - 69 and power ball 1 - 26
-		Mega Millions: 5 Numbers from 1 - 70 and the mega ball from 1 - 25.
-		Lotto Texas: 6 numbers 1 - 54
-	*/
-	if (game === 'PB') {
-		megaPowerBall = randomBall(26);
-		ballsToPick = 5;
-		gameMaxNums = 69;
-	}else if(game === 'MB'){
-		megaPowerBall = randomBall(25);	
-		ballsToPick = 5;
-		gameMaxNums = 70;		
-	}else {
-		megaPowerBall = 'no mega or powerball';	
-		ballsToPick = 6;
-		gameMaxNums = 54;
-	}
+// display our drawn numbers
+const displayNumbers = function () {
+  for (let i = 0; i < numbers.length; i++) {
+    document.querySelector(`.drawn-num-${i + 1}`).textContent = numbers[i];
+  }
+  document.getElementById('power-ball').textContent = powerball;
+};
 
-	// pick numbers!!
-	do {
-		winningNumbers.push(randomBall(gameMaxNums));
-	} while (winningNumbers.length < ballsToPick);
+// Once document has loaded.
+document.addEventListener('DOMContentLoaded', function () {
+  // draw numbers
+  document
+    .querySelector('.draw-numbers-btn')
+    .addEventListener('click', function () {
+      drawNumbers();
+    });
 
-	// sort numbers in ascending number
-	winningNumbers.sort(
-		function(a,b){
-			return a - b;
-		}
-	);
+  // if numbers are stored in local storage, display them if not save them
+  if (localStorage.getItem('savedNumbers')) {
+    // get numbers from local storage
+    let savedNumbers = JSON.parse(localStorage.getItem('savedNumbers'));
+    document.getElementById('your-last-draw-nums').textContent = savedNumbers
+      .slice(0, 6)
+      .join(', ');
 
-	winningNumbersContainer.textContent = winningNumbers;
-	megaPowerBallContainer.textContent = megaPowerBall;
-
-	console.log(megaPowerBall, winningNumbers);
-}
-
-// run functions by interacting with the DOM
-// select user
-selectPlayer.forEach(function(element){	
-	element.addEventListener('click', function(e){
-		e.preventDefault();		
-		playerName = this.textContent;
-		pageTitle.textContent = playerName;
-	});
-});
-
-// select game and roll numbers
-rollNumbers.addEventListener('click', function (e){	
-	e.preventDefault();
-	var whatGame = document.querySelector('input[name="game"]:checked').id;
-	console.log(whatGame);
-	pickAutomatic(whatGame);
-});
-
-//  start over (refresh)
-startOver.addEventListener('click', function(){
-	location.reload();
+    // display numbers container
+    document.querySelector('.your-nums').classList.remove('hidden');
+  }
 });

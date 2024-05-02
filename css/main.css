@@ -1,0 +1,149 @@
+/* Path: css/style.css */
+body {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+/* typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Red Hat Display', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: #ff9900;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+h2 small {
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+.last-numbers {
+  font-size: 1.5rem;
+}
+
+/* Layouts */
+.header {
+  padding-top: 2rem;
+}
+
+.container {
+  max-width: 400px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.last-draw {
+  background-color: #424242;
+  color: white;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.your-nums {
+  background-color: #3299bb;
+}
+
+/* button */
+.draw-numbers-btn {
+  background-color: #ff9900;
+  color: white;
+  border-radius: 18px;
+  margin-top: 2rem;
+  display: block;
+  width: 100%;
+  border: 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+  padding: 1rem 0;
+  border-radius: 30px;
+  text-transform: uppercase;
+}
+
+/* draw ball */
+.ball-drawn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  z-index: 0;
+  display: block;
+}
+
+.ball-drawn {
+  background-color: #f1396d;
+  color: #000000;
+  margin: 2rem auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 2rem;
+  width: 20vw;
+  height: 20vw;
+  position: relative;
+  z-index: 1;
+  font-weight: 900;
+}
+
+.show-drawn-num {
+  position: relative;
+}
+
+/* final numbers */
+.drawn-nums {
+  margin-top: 30px;
+  display: flex;
+  gap: 2rem;
+  font-size: 2rem;
+  font-weight: 900;
+  justify-content: space-around;
+}
+
+.power-ball {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+#power-ball {
+  font-weight: 900;
+  font-size: 3rem;
+}
+
+/* utility classes */
+.hidden {
+  display: none;
+}

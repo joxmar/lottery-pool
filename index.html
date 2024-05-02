@@ -1,71 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Lottery Poll</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
- <meta name="keywords" content="">
-<!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<meta charset="UTF-8">
+	<title>Lottery Pool</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link rel="icon" href="images/lottery.png" type="image/x-icon">
+	<link rel="shortcut icon" href="images/lottery.png" type="image/x-icon">
+	<!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<!-- link to Eric Meyer's css reset -->
+	<link rel="stylesheet" href="css/reset.css">
+	<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
-	<header class="header">
-		<button class="nav-buttons">Previous</button>
-		<h1 id="game-title">Lotto Pool</h1>
-		<button class="nav-buttons" id="refresh-page">Start Over</button>
+	<header class="header container">
+		<h1 id="game-title">Lotto Numbers Draw</h1>
 	</header>
-	<section>
-		<form action="">
-			<fieldset id="select-name">
-				<h2>Choose Name</h2>
-				<button class="select-player">Michael</button>
-				<button class="select-player">James</button>
-				<button class="select-player">Jorge</button>
-			</fieldset>
-			<fieldset id="choose-game">
-				<h2>Choose Game</h2>
-				<input id="LT" type="radio" name="game">
-				<label for="LT">Lotto Texas</label>
-				<input id="MB" type="radio" name="game">
-				<label for="MB">Mega Millions</label>
-				<input id="PB" type="radio" name="game">
-				<label for="PB">Power Ball</label>
-			</fieldset>
-			<fieldset id="choose-numbers">
-				<h2>Choose Numbers</h2>
-				<button id="pick-automatic">Pick Randomlly</button>
-				<button>Pick Manually</button>
-				<p>Picked Numbers: <span id="winning-numbers"></span></p>
-				<p>Mega/Power Ball: <span id="mega-power-ball"></span></p>
-				<input type="number">
-				<input type="number">
-				<input type="number">
-				<input type="number">
-				<input type="number">
-				<input type="number">
-				<button>Submit Numbers</button>
-			</fieldset>
-			<fieldset id="whos-turn">
-				<h2>Who's turn</h2>
-				<button>Show History</button>
-				<table>
-					<tr>
-						<th>Buyer/date</th>
-						<th>James' #</th>
-						<th>Michael's #</th>
-						<th>Jorge's #</th>
-					</tr>
-					<tr>
-						<td>Jorge <br>12/12/2018 </td>
-						<td>5-5-5-5-5-5</td>
-						<td>5-5-5-5-5-5</td>
-						<td>5-5-5-5-5-5</td>					
-					</tr>
-				</table>
-			</fieldset>
-		</form>
-	</section>
+	<main class="container">
+		<section class="last-draw">
+			<h2>last draw <br>
+				<small class="date"></small>
+			</h2>
+			<div id="last-draw-nums" class="last-numbers"></div>
+		</section>
+		<section class="last-draw your-nums hidden">
+			<h2>Your last draw</h2>
+			<div id="your-last-draw-nums" class="last-numbers">1 2 3 4 5 6</div>
+		</section>
+		<section class="play">
+			<button class="draw-numbers-btn">Draw Numbers</button>
+			<div id="ball-drawn" class="ball-drawn">
+				<span class="show-drawn-num">0</span>
+			</div>
+			<div id="drawn-nums" class="drawn-nums">
+				<span class="drawn-num-1">0</span>
+				<span class="drawn-num-2">0</span>
+				<span class="drawn-num-3">0</span>
+				<span class="drawn-num-4">0</span>
+				<span class="drawn-num-5">0</span>
+			</div>
+			<div class="power-ball">
+				<h2>Power ball:</h2>
+				<div id="power-ball">0</div>
+			</div>
+		</section>
+	</main>
 	<script src="js/functions.js"></script>
 </body>
-</html> 
+
+</html>
