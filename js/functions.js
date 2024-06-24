@@ -1,6 +1,6 @@
 /*
 Lottery numbers
-- get last draw numbers from api: https://data.ny.gov/resource/d6yy-54nr.json
+- get last POWERBALL draw numbers from api: https://data.ny.gov/resource/d6yy-54nr.json
 - if user has previously played, get their numbers from local storage
 - draw numbers from button:
 	- generate 5 random numbers between 1 and 69 and place it in an array
