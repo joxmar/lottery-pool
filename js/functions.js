@@ -12,6 +12,7 @@ Powerball: 5 numbers 1 - 69 and power ball 1 - 26
 // Let's get past draws
 let pastDraws;
 const drawsApiUrl = 'https://data.ny.gov/resource/d6yy-54nr.json';
+const powerBallDraws = 'https://data.ny.gov/resource/5xaw-6ayf.json'
 const getPastDraws = async function () {
   const response = await fetch(drawsApiUrl);
   pastDraws = await response.json();
